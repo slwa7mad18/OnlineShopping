@@ -56,5 +56,61 @@ namespace OnlineShopping.Controllers
 
             return View(newUser);
         }
+
+
+
+
+        //login
+
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(LoginViewModel uservm)
+        {
+            if (ModelState.IsValid == true)
+            {
+                ApplicationUser userDB = await UserManager.FindByNameAsync(uservm.UserName);
+
+
+                if (userDB != null)
+                {
+                    bool found = await UserManager.CheckPasswordAsync(userDB, uservm.Password);
+
+                    if (found)
+                    {
+                        await SignInManager.SignInAsync(userDB, uservm.RememberMe);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                ModelState.AddModelError("", "Invalid Account");
+            }
+            return View("Login", uservm);
+        }
+
+
+
+
+        public async Task<IActionResult> SignOut()
+        {
+
+            await SignInManager.SignOutAsync();
+            return RedirectToAction("Login");
+
+        }
+
+
+
+
+
+
+
     }
 }
