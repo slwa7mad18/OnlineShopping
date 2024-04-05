@@ -1,3 +1,4 @@
+using System.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
@@ -19,6 +20,11 @@ namespace WebApplication1
                 options => { options.Password.RequiredLength = 8; })
                 .AddEntityFrameworkStores<Context>();
 
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<Context>();
+
+
+            builder.Services.AddSession();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,15 +32,21 @@ namespace WebApplication1
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "Dashbord",
+                pattern: "{controller=AdminDashbord}/{action=Index}");
 
             app.Run();
         }
