@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Models;
 
@@ -11,9 +12,11 @@ using WebApplication1.Models;
 namespace OnlineShopping.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240405023655_Init55")]
+    partial class Init55
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -260,7 +263,7 @@ namespace OnlineShopping.Migrations
                             Id = "dodo-soly-18111999",
                             AccessFailedCount = 0,
                             Adress = "Minia , Egypt",
-                            ConcurrencyStamp = "59b74f46-825f-441d-a8b7-18f1e84a9e69",
+                            ConcurrencyStamp = "557f88fd-c596-4b04-8625-27620b28c23b",
                             Email = "salwahammad18@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Salwa",
@@ -269,7 +272,7 @@ namespace OnlineShopping.Migrations
                             PasswordHash = "dodo@Soly18111999",
                             PhoneNumber = "01120080013",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39840014-5f5a-41d3-962f-abd4417b5243",
+                            SecurityStamp = "157aba40-c2a9-47d5-af9a-e477566a0994",
                             TwoFactorEnabled = false
                         });
                 });
@@ -295,12 +298,10 @@ namespace OnlineShopping.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

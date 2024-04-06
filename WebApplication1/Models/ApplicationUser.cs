@@ -14,7 +14,7 @@ namespace WebApplication1.Models
             , MinLength(3, ErrorMessage = "Last Name Must be more Than 3 Character ")]
         public string LastName { get; set; }
 
-        public string Adress { get; set; }
+        public string? Adress { get; set; }
 
         [RegularExpression(@"^\d{11}$", ErrorMessage = "Phone Number must be 11 digit ")]
         public string PhoneNumber { get; set; }

@@ -1,4 +1,3 @@
-
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineShopping.Reposatory;
@@ -16,12 +15,17 @@ namespace WebApplication1
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<Context>(options
-             => options.UseSqlServer(@"Data Source=.;Initial Catalog=OnlineShopping;Integrated Security=True;Trust Server Certificate=true"));
+             => options.UseSqlServer(@"Data Source=DESKTOP-N8IT99F;Initial Catalog=OnlineShopping;Integrated Security=True;Trust Server Certificate=true"));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => { options.Password.RequiredLength = 8; })
                 .AddEntityFrameworkStores<Context>();
             builder.Services.AddScoped<IReposatory<Category>, GenaricReposatory<Category>>();
 
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<Context>();
+
+
+            builder.Services.AddSession();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -29,15 +33,21 @@ namespace WebApplication1
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
+
 
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "Dashbord",
+                pattern: "{controller=AdminDashbord}/{action=Index}");
 
             app.Run();
         }
