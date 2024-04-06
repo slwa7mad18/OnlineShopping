@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebApplication1.Models;
 
@@ -11,9 +12,11 @@ using WebApplication1.Models;
 namespace OnlineShopping.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240405150047_init4")]
+    partial class init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -261,7 +264,7 @@ namespace OnlineShopping.Migrations
                             Id = "dodo-soly-18111999",
                             AccessFailedCount = 0,
                             Adress = "Minia , Egypt",
-                            ConcurrencyStamp = "ea233c1b-9eca-4ca6-8696-f8c3bf678bce",
+                            ConcurrencyStamp = "b2615323-1886-45e3-b54a-9484e87e2458",
                             Email = "salwahammad18@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Salwa",
@@ -270,7 +273,7 @@ namespace OnlineShopping.Migrations
                             PasswordHash = "dodo@Soly18111999",
                             PhoneNumber = "01120080013",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2defc40d-ddc6-4d42-9386-0f2cafd7b2b2",
+                            SecurityStamp = "259dbb6c-0f09-40d8-81d0-f3bb27df5512",
                             TwoFactorEnabled = false
                         });
                 });
@@ -301,7 +304,8 @@ namespace OnlineShopping.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 

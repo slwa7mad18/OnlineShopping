@@ -1,0 +1,60 @@
+﻿@model IEnumerable<WebApplication1.Models.Category>
+
+@{
+    Layout = "_CategoryLayout";
+    ViewData["Title"] = "Index";
+}
+
+  <div class="container-fluid pt-4 px-4">
+                <div class="bg-secondary text-center rounded p-4">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h6 class="mb-0">Recent Salse</h6>
+                        <a href="">Show All</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-white">
+                                  
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Create</th>
+                                    <th scope="col">Update</th>
+                                    <th scope="col">Details</th>
+                                    <th scope="col">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+    <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("New", new { id = item.Id })'">Create</button>
+</td>
+
+                            <td>
+                                <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Edit</button>
+                            </td>
+
+                              <td>
+    <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
+</td>
+
+                               <td>
+    <button class="btn btn-sm btn-danger" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
+</td>
+
+                            
+                        </tr>
+                    }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div> 

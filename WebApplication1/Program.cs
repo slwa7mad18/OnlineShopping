@@ -1,5 +1,7 @@
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OnlineShopping.Reposatory;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -18,6 +20,7 @@ namespace WebApplication1
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => { options.Password.RequiredLength = 8; })
                 .AddEntityFrameworkStores<Context>();
+            builder.Services.AddScoped<IReposatory<Category>, GenaricReposatory<Category>>();
 
             var app = builder.Build();
 
