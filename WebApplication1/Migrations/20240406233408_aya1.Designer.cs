@@ -12,8 +12,8 @@ using WebApplication1.Models;
 namespace OnlineShopping.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240405204839_init3")]
-    partial class init3
+    [Migration("20240406233408_aya1")]
+    partial class aya1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -263,7 +263,7 @@ namespace OnlineShopping.Migrations
                             Id = "dodo-soly-18111999",
                             AccessFailedCount = 0,
                             Adress = "Minia , Egypt",
-                            ConcurrencyStamp = "59b74f46-825f-441d-a8b7-18f1e84a9e69",
+                            ConcurrencyStamp = "e1468d3c-263a-4bcb-a1a5-f7099ce09ffb",
                             Email = "salwahammad18@gmail.com",
                             EmailConfirmed = false,
                             FirstName = "Salwa",
@@ -272,7 +272,7 @@ namespace OnlineShopping.Migrations
                             PasswordHash = "dodo@Soly18111999",
                             PhoneNumber = "01120080013",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "39840014-5f5a-41d3-962f-abd4417b5243",
+                            SecurityStamp = "6fc82421-3d24-4d82-840f-9e3f99e7aff9",
                             TwoFactorEnabled = false
                         });
                 });
@@ -298,10 +298,12 @@ namespace OnlineShopping.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

@@ -15,7 +15,7 @@ namespace WebApplication1
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<Context>(options
-             => options.UseSqlServer(@"Data Source=DESKTOP-N8IT99F;Initial Catalog=OnlineShopping;Integrated Security=True;Trust Server Certificate=true"));
+             => options.UseSqlServer(@"Data Source=DESKTOP-V68GU8B;Initial Catalog=OnlineShopping;Integrated Security=True;Trust Server Certificate=true"));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => { options.Password.RequiredLength = 8; })
                 .AddEntityFrameworkStores<Context>();
