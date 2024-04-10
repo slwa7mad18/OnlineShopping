@@ -10,7 +10,10 @@ namespace WebApplication1.Models
         public string Name { get; set; }  
 
         [MaxLength(100, ErrorMessage = "Product Description Must Be Less Than 100 Character")]
-        public string Description { get; set; } 
+        public string Description { get; set; }
+
+        [Required(ErrorMessage = "Please Choose Product Picture")]
+        [Display(Name = "Product Picture")]
         public string ImgUrl { get; set; } 
 
         [Range(1, 100000)]

@@ -47,20 +47,6 @@ namespace OnlineShopping.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dodo-soly-18111999",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "soo-18",
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -148,13 +134,6 @@ namespace OnlineShopping.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "dodo-soly-18111999",
-                            RoleId = "dodo-soly-18111999"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -253,25 +232,6 @@ namespace OnlineShopping.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dodo-soly-18111999",
-                            AccessFailedCount = 0,
-                            Adress = "Minia , Egypt",
-                            ConcurrencyStamp = "59b74f46-825f-441d-a8b7-18f1e84a9e69",
-                            Email = "salwahammad18@gmail.com",
-                            EmailConfirmed = false,
-                            FirstName = "Salwa",
-                            LastName = "Hammad",
-                            LockoutEnabled = false,
-                            PasswordHash = "dodo@Soly18111999",
-                            PhoneNumber = "01120080013",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "39840014-5f5a-41d3-962f-abd4417b5243",
-                            TwoFactorEnabled = false
-                        });
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Cart", b =>

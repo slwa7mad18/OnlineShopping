@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using OnlineShopping.Models;
 using OnlineShopping.Reposatory;
+using OnlineShopping.Reposatory.ProductReposatory;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -15,11 +17,19 @@ namespace WebApplication1
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<Context>(options
-             => options.UseSqlServer(@"Data Source=DESKTOP-N8IT99F;Initial Catalog=OnlineShopping;Integrated Security=True;Trust Server Certificate=true"));
+                => options.UseSqlServer(@"Data Source=.;Initial Catalog=OnlineShopping;Integrated Security=True;Trust Server Certificate=true")
+                );
+
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
                 options => { options.Password.RequiredLength = 8; })
+                .AddUserManager<UserManager<ApplicationUser>>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
                 .AddEntityFrameworkStores<Context>();
+
             builder.Services.AddScoped<IReposatory<Category>, GenaricReposatory<Category>>();
+            builder.Services.AddScoped<IProductReposatory, ProductReposatory>();
+            builder.Services.AddTransient<UserManager<ApplicationUser>>();
+            builder.Services.AddTransient<RoleManager<IdentityRole>>();
 
             //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<Context>();
@@ -39,7 +49,7 @@ namespace WebApplication1
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
 
             app.MapControllerRoute(
                 name: "default",
@@ -49,7 +59,11 @@ namespace WebApplication1
                 name: "Dashbord",
                 pattern: "{controller=AdminDashbord}/{action=Index}");
 
+            
             app.Run();
+            var DbInitializer = new Initializer();
+            DbInitializer.Initialize();
+
         }
     }
 }
