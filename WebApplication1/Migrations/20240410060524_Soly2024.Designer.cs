@@ -12,8 +12,13 @@ using WebApplication1.Models;
 namespace OnlineShopping.Migrations
 {
     [DbContext(typeof(Context))]
+<<<<<<<< HEAD:WebApplication1/Migrations/20240410060524_Soly2024.Designer.cs
     [Migration("20240410060524_Soly2024")]
     partial class Soly2024
+========
+    [Migration("20240406233408_aya1")]
+    partial class aya1
+>>>>>>>> 38282e12012260a4b06b554e7b79a1cad5deadb7:WebApplication1/Migrations/20240406233408_aya1.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -235,6 +240,28 @@ namespace OnlineShopping.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+<<<<<<<< HEAD:WebApplication1/Migrations/20240410060524_Soly2024.Designer.cs
+========
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "dodo-soly-18111999",
+                            AccessFailedCount = 0,
+                            Adress = "Minia , Egypt",
+                            ConcurrencyStamp = "e1468d3c-263a-4bcb-a1a5-f7099ce09ffb",
+                            Email = "salwahammad18@gmail.com",
+                            EmailConfirmed = false,
+                            FirstName = "Salwa",
+                            LastName = "Hammad",
+                            LockoutEnabled = false,
+                            PasswordHash = "dodo@Soly18111999",
+                            PhoneNumber = "01120080013",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "6fc82421-3d24-4d82-840f-9e3f99e7aff9",
+                            TwoFactorEnabled = false
+                        });
+>>>>>>>> 38282e12012260a4b06b554e7b79a1cad5deadb7:WebApplication1/Migrations/20240406233408_aya1.Designer.cs
                 });
 
             modelBuilder.Entity("WebApplication1.Models.Cart", b =>

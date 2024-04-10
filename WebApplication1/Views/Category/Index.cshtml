@@ -1,60 +1,129 @@
 ﻿@model IEnumerable<WebApplication1.Models.Category>
 
 @{
-    Layout = "_CategoryLayout";
     ViewData["Title"] = "Index";
 }
 
-  <div class="container-fluid pt-4 px-4">
-                <div class="bg-secondary text-center rounded p-4">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                        <h6 class="mb-0">Recent Salse</h6>
-                        <a href="">Show All</a>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-white">
-                                  
-                                    <th scope="col">ID</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Create</th>
-                                    <th scope="col">Update</th>
-                                    <th scope="col">Details</th>
-                                    <th scope="col">Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+<style>
+    .container-fluid {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .bg-secondary {
+        background-color: #f8f9fa !important; /* Light grey */
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #6c757d; /* Custom header color */
+            color: #fff; /* Header text color */
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #fff; /* White */
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #e2e6ea; /* Grey */
+    }
+
+    /* Button colors */
+    .create-button {
+        background-color: #28a745; /* Green */
+        border-color: #28a745; /* Green */
+    }
+
+    .edit-button {
+        background-color: #ffc107; /* Yellow */
+        border-color: #ffc107; /* Yellow */
+    }
+
+    .details-button {
+        background-color: #007bff; /* Blue */
+        border-color: #007bff; /* Blue */
+    }
+
+    .delete-button {
+        background-color: #dc3545; /* Red */
+        border-color: #dc3545; /* Red */
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="bg-secondary text-center rounded p-4">
+        <h1 class="text-black">Categories</h1>
+        <div class="d-flex align-items-center justify-content-between mb-4">
+           
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
+                <thead class="text-white">
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Created</th>
+                        <th scope="col">Updated</th>
+                        <th scope="col">Details</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Id)
+                                <button class="btn btn-sm btn-primary create-button" onclick="window.location.href='@Url.Action("New", new { id = item.Id })'">Create</button>
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Name)
+                                <button class="btn btn-sm btn-primary edit-button" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
                             </td>
                             <td>
-    <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("New", new { id = item.Id })'">Create</button>
-</td>
+                                <button class="btn btn-sm btn-info" onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
 
-                            <td>
-                                <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Edit</button>
                             </td>
-
-                              <td>
-    <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
-</td>
-
-                               <td>
-    <button class="btn btn-sm btn-danger" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
-</td>
-
-                            
+                            <td>
+                                <button class="btn btn-sm btn-danger delete-button" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
+                            </td>
                         </tr>
                     }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div> 
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
