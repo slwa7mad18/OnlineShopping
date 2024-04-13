@@ -21,7 +21,7 @@ namespace OnlineShopping.ViewModel.Product
         [Range(0, 10000)]
         public int Count { get; set; }
 
-        [Display(Name = "Product Category")]
+        [Display(Name = "Sellect Category")]
         public int CategoryId { get; set; }
     }
 }

@@ -2,56 +2,80 @@
 
 @{
     ViewData["Title"] = "Edit";
+    Layout = "_AdminLayout";
 }
 
-<h1>Edit</h1>
 
-<h4>AddProductViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+<div class="modal modal-dialog modal-xl position-static d-block  p-4 " style="background-color: #F8FAE5;" tabindex="-1" role="dialog" id="modalSignin">
+    <div class="modal-dialog">
+        <div class="modal-content rounded shadow " style="border: 1px solid #863F17; background-color: #F8FAE5;">
+            <div class="modal-header mx-4">
+                <h1 class="modal-title" style="color: #863F17">Update Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="window.location.href='@Url.Action("Index")'" aria-label="Close"></button>
             </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <input asp-for="Description" class="form-control" />
-                <span asp-validation-for="Description" class="text-danger"></span>
+            <div class="modal-body " >
+                <form asp-action="Edit" enctype="multipart/form-data">
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="mx-4">
+                        <div class="col  my-3">
+                            <div class="form-outline">
+                                <label asp-for="Name" class="control-label"></label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col  my-3">
+                            <div class="form-outline ">
+                                <label asp-for="Description" class="control-label"></label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="co  my-3l">
+                            <div class="form-outline">
+                                <label asp-for="ImgUrl" class="control-label"></label>
+                                <input asp-for="ImgUrl" class="form-control" />
+                                <span asp-validation-for="ImgUrl" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col  my-3">
+                            <div class="form-outline">
+                                <label asp-for="Price" class="control-label"></label>
+                                <input asp-for="Price" class="form-control" />
+                                <span asp-validation-for="Price" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="col  my-3">
+                            <div class="form-outline">
+                                <label asp-for="Count" class="control-label"></label>
+                                <input asp-for="Count" class="form-control" />
+                                <span asp-validation-for="Count" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="col my-3">
+                            <label asp-for="CategoryId" class="control-label"></label>
+                            <div class="form-outline mb-4">
+                                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                                <span asp-validation-for="CategoryId" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group my-4">
+                            <input type="submit" value="Update" class="btn btn-warning" />
+                            <button class="btn btn-secondary" onclick="window.location.href='@Url.Action("Index")'"> Cancel </button>
+                        </div>
+
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="ImgUrl" class="control-label"></label>
-                <input asp-for="ImgUrl" class="form-control" />
-                <span asp-validation-for="ImgUrl" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Count" class="control-label"></label>
-                <input asp-for="Count" class="form-control" />
-                <span asp-validation-for="Count" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryId" class="control-label"></label>
-                <input asp-for="CategoryId" class="form-control" />
-                <span asp-validation-for="CategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

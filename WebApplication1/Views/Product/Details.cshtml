@@ -2,58 +2,46 @@
 
 @{
     ViewData["Title"] = "Details";
+    Layout = "_AdminLayout";
+
 }
 
-<h1>Details</h1>
+<center>
+    <div class="align-content-center">
+        <div class="container">
+            <div class="card shadow rounded mx-3" style="width: 35rem; border: 1px solid #863F17; background-color: #F8FAE5;">
+                <img src="~/Uploads/@Model.ImgUrl" height="300px" class="card-img-top" alt="product Img" />
+                <div class="card-body">
+                    <form asp-action="Details" method="post">
+                        <h2> Name: @Model.Name</h2>
+                        <div class="text-start">
+                            <p>Description: @Model.Description</p>
+                            <p>Count: @Model.Count</p>
+                            <p>Price: @Model.Price</p>
+                            <p>CategoryId: @Model.CategoryId</p>
+                        </div>
+                     
 
-<div>
-    <h4>Product</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ImgUrl)
-        </dt>
-        <dd class = "col-sm-10">
-            <img src="~/Uploads/@Model.ImgUrl" alt="Alternate Text" />
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Count)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Count)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-    </dl>
-</div>
+
+                        <div class="d-inline-flex gap-1">
+                            <a class="btn btn-warning btn-lg" asp-action="Edit" asp-controller="Product" asp-route-id="@Model.Id"> Update </a>
+                            <a class="btn btn-secondary btn-lg" asp-action="Index" asp-controller="Product"> Cancel </a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
 <div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
