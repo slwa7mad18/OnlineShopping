@@ -27,7 +27,7 @@ namespace OnlineShopping.Controllers
 
         public IActionResult Index()
         {
-            ViewBag.PageCount = (int)Math.Ceiling((decimal)ProductReposatory.GetAll().Count() / 5);
+            ViewBag.PageCount = (int)Math.Ceiling((decimal)ProductReposatory.GetAll().Count() / 5m);
             return View(this.ProductReposatory.GetAll());
         }
         public IActionResult GetAll(int PageNum,int pageSize = 5)
@@ -36,6 +36,8 @@ namespace OnlineShopping.Controllers
                 .OrderBy(p=>p.Id).Skip((PageNum-1)*pageSize)
                 .Take(pageSize).ToList();
             return PartialView("_ProductTable", products);
+
+
         }
 
         [HttpGet]

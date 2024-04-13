@@ -5,12 +5,8 @@ namespace OnlineShopping.Models
 {
     public class Initializer
     {
-        private UserManager<ApplicationUser> _UserManager { get; set; }
-        private RoleManager<IdentityRole> _RoleManager { get; set; }
-
-        public Initializer()
-        {
-        }
+        public UserManager<ApplicationUser> _UserManager { get; set; }
+        public RoleManager<IdentityRole> _RoleManager { get; set; }
 
         public Initializer(UserManager<ApplicationUser> UserManager, RoleManager<IdentityRole> RoleManager)
         {
@@ -19,30 +15,38 @@ namespace OnlineShopping.Models
         }
 
 
-        public async void Initialize()
+        public async Task<bool> Initialize()
         {
-
-            var roleExist = await _RoleManager.FindByNameAsync("Admin");
-            if (roleExist == null)
+            try
             {
-                await _RoleManager.CreateAsync(new IdentityRole("Admin"));
+                //var roleExist = await _RoleManager.FindByNameAsync("Admin");
+                if (!await _RoleManager.RoleExistsAsync("Admin"))
+                {
+                    await _RoleManager.CreateAsync(new IdentityRole("Admin"));
+                }
 
-                var emailExist = await _UserManager.FindByNameAsync("salwahammad18@gmail.com");
+                var emailExist = await _UserManager.FindByEmailAsync("salwahammad18@gmail.com");
                 if (emailExist == null)
                 {
-                    var app = new ApplicationUser()
+                    var user = new ApplicationUser()
                     {
+                        UserName = "salwahammad18@gmail.com",
                         Email = "salwahammad18@gmail.com",
                         FirstName = "Salwa",
                         LastName = "Hammad",
                         Adress = "Minia , Egypt",
                         PhoneNumber = "01120080013"
-
                     };
 
-                    await _UserManager.CreateAsync(app, "dodo@Soly18111999");
-                    await _UserManager.AddToRoleAsync(app, "Admin");
+                    var userResult = await _UserManager.CreateAsync(user, "dodo@Soly18111999");
+                    await _UserManager.AddToRoleAsync(user, "Admin");
                 }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
             }
         }
     }

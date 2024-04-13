@@ -30,7 +30,7 @@ namespace WebApplication1
             builder.Services.AddScoped<IProductReposatory, ProductReposatory>();
             builder.Services.AddTransient<UserManager<ApplicationUser>>();
             builder.Services.AddTransient<RoleManager<IdentityRole>>();
-
+            builder.Services.AddTransient<Initializer>();
             //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<Context>();
 
@@ -61,8 +61,7 @@ namespace WebApplication1
 
             
             app.Run();
-            var DbInitializer = new Initializer();
-            DbInitializer.Initialize();
+            
 
         }
     }
