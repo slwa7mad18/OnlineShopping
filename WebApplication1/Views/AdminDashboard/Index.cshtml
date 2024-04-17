@@ -2,76 +2,66 @@
 
 @{
     ViewData["Title"] = "Index";
+    Layout = "_AdminLayout";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ConfirmPassword)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ConfirmPassword)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-6 p-5">
+            <div class="text-center lead text-black fw-bold">Number of Products per Category</div>
+            <div class="w-100 position-relative">
+                <canvas id="numberOfProductsForEachCategory"></canvas>
+            </div>
+        </div>
+
+        <div class="col-6 p-5">
+            <div class="text-center lead text-black fw-bold">Top 10 Products by Price</div>
+            <div class="w-100 position-relative">
+                <canvas id="top10ProductsByPrice"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx_1 = document.getElementById('numberOfProductsForEachCategory');
+
+    new Chart(ctx_1, {
+        type: 'doughnut',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewData["numberOfProductsForEachCategory_Names"])),
+            datasets: [{
+                data: @Html.Raw(Json.Serialize(ViewData["numberOfProductsForEachCategory_Counts"]))
+                }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+
+<script>
+    const ctx_2 = document.getElementById('top10ProductsByPrice');
+
+    new Chart(ctx_2, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(ViewData["top10ProductsByPrice_Names"])),
+            datasets: [{
+                axis: 'y',
+                label: 'Price',
+                data: @Html.Raw(Json.Serialize(ViewData["top10ProductsByPrice_Prices"]))
+                        }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            indexAxis: 'y'
+        }
+    });
+</script>

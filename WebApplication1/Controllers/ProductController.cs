@@ -27,8 +27,10 @@ namespace OnlineShopping.Controllers
 
         public IActionResult Index()
         {
+            //var DeletedCat=CategoryRepo.GetAll().Where(e => e.IsDeleted == true);
             ViewBag.PageCount = (int)Math.Ceiling((decimal)ProductReposatory.GetAll().Count() / 5m);
             return View(this.ProductReposatory.GetAll());
+
         }
         public IActionResult GetAll(int PageNum,int pageSize = 5)
         {
@@ -49,7 +51,7 @@ namespace OnlineShopping.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            ViewData["CategoryId"]=new SelectList(CategoryRepo.GetAll(), "Id", "Name");
+            ViewData["CategoryId"]=new SelectList(CategoryRepo.GetAll().Where(e=>e.IsDeleted==false), "Id", "Name");
             return View();
         }
         [HttpPost,ValidateAntiForgeryToken]
@@ -98,7 +100,7 @@ namespace OnlineShopping.Controllers
                 Count = product.Count,
                 CategoryId = product.CategoryId,
             };
-            ViewData["CategoryId"] = new SelectList(CategoryRepo.GetAll(), "Id", "Name"
+            ViewData["CategoryId"] = new SelectList(CategoryRepo.GetAll().Where(e=>e.IsDeleted==false), "Id", "Name"
                 , CategoryRepo.GetById(model.CategoryId));
                 return View(model);
         }

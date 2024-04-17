@@ -56,7 +56,7 @@ namespace WebApplication1
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
-                name: "Dashbord",
+                name: "AdminDashboard",
                 pattern: "{controller=AdminDashbord}/{action=Index}");
 
             

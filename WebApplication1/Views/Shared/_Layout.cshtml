@@ -7,43 +7,182 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/WebApplication1.styles.css" asp-append-version="true" />
+
+    <style>
+        /* Custom styles for the navbar */
+        .custom-navbar {
+            max-width: 1500px; /* Set the maximum width */
+            margin: auto; /* Center the navbar */
+           
+        }
+
+        .moving-container {
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        .moving-text,
+        .moving-image {
+            display: inline-block;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WebApplication1</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Index">product</a>
-                        </li>
-                    </ul>
-                </div>
+    <nav class="navbar navbar-expand-lg  p-1" style="background-color: #95674D;" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/Home"><img style="height: 50px; width: auto;" src="~/images/Logo.png" /> </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarColor01">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item m-0">
+                        <a class="nav-link text-white @(Context.Request.Path.StartsWithSegments("/Home")   ? "active" : "")" href="/Home">
+                            Home
+                            <span class="visually-hidden">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item m-0">
+                        <a class="nav-link text-white @(Context.Request.Path.StartsWithSegments("/Contact")   ? "active" : "") " href="/Contact">Contact</a>
+                    </li>
+                    <li class="nav-item m-0">
+                        <a class="nav-link text-white @(Context.Request.Path.StartsWithSegments("/About")   ? "active" : "") " href="/About">About</a>
+                    </li>
+
+
+                </ul>
+
+                <input class="form-control me-3 text-dark bg-white input" id="search" name="search" type="search" placeholder="Search Product" aria-label="Search">
+                <span class=" me-3 "><button onclick="SearchProducts()" class="btn rounded text-black" style="background-color:#F8FAE5;" type="submit">Search</button></span>
+
+
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        @if (User.Identity.IsAuthenticated == false)
+                        {
+                            <a class="nav-link dropdown-toggle form-check text-white form-check-inline" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Login">Sign In</a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="Register">Sign Up</a>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <a class="nav-link dropdown-toggle text-white" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                @* <i class="bi bi-person-circle"></i> *@
+                                @User.Identity.Name.Split("@")[0]
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="/Profile/Index"><i class="bi bi-person-vcard-fill"></i> My Account</a>
+                                <a class="dropdown-item" href="/Profile/Orders"><i class="bi bi-printer-fill"></i> Orders</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="SignOut"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                            </div>
+                        }
+
+                    </li>
+
+                </ul>
+
+              @*   <a onclick="GoToCart()">
+                    <i type="button" class="bi fs-4 bi-cart4 text-light position-relative me-2 p-0 nav-item nav-link">
+                        <span id="CartIcon" class="position-absolute fs-6 top-0 start-10 translate-middle badge rounded-pill bg-danger">
+                            0
+                            <span class="visually-hidden">unread messages</span>
+                        </span>
+                    </i>
+                </a> *@
+
+
+
             </div>
-        </nav>
-    </header>
-    <div class="container">
+        </div>
+    </nav>
+
+
+    
+    <br />
+    <div class="container my-3">
+        <h2 class="text-center" style="color:#863F17;">
+            Welcome To HŌME
+        </h2>
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - WebApplication1 - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container text-center">
+            &copy; 2023 - HŌMEMVCPROJECTITI - <a href="#">Privacy</a>
         </div>
     </footer>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // Animation
+        $(document).ready(function () {
+            function animateContent() {
+                $('.moving-container').animate({ marginLeft: '280%' }, 8000, 'linear', function () {
+
+                    $(this).css('margin-left', '-560%');
+                    setTimeout(animateContent, 1000); // Wait for 1 second before restarting the animation
+                });
+
+            }
+
+            // animateContent(); // Start the animation on page load
+        });
+    </script>
+
+    <script>
+
+
+        function SearchProducts() {
+
+            var search = $('#search').val();
+
+            $.ajax({
+                url: `/Home/Search?search=${search}`,
+                type: 'GET',
+                success: function (data) {
+                    console.log(data)
+                    $('#products').html(data);
+
+                },
+                error: function () {
+                    console.log('Error loading data.');
+                }
+            });
+        }
+
+        function CategoryProducts(Id) {
+
+            $.ajax({
+                url: `/Home/Categories?catId=${Id}`,
+                type: 'GET',
+                success: function (data) {
+
+                    console.log(data)
+                    $('#products').html(data);
+                },
+                error: function () {
+                    console.log('Error loading data.');
+                }
+            });
+        }
+
+
+
+    </script>
+
+
+    <script src="~/js/Home.js"> </script>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

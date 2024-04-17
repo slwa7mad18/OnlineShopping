@@ -101,6 +101,14 @@ namespace OnlineShopping.Controllers
 
                     if (found)
                     {
+                        var IsAdmin= await UserManager.IsInRoleAsync(userDB, "Admin");
+                        if (IsAdmin)
+                        {
+                            await SignInManager.SignInAsync(userDB, uservm.RememberMe);
+
+                            return RedirectToAction("Index", "AdminDashboard");
+
+                        }
                         await SignInManager.SignInAsync(userDB, uservm.RememberMe);
                         return RedirectToAction("Index", "Home");
                     }
