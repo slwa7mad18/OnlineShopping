@@ -9,7 +9,7 @@ using WebApplication1.Models;
 
 namespace OnlineShopping.Controllers
 {
-   [Authorize(Roles ="Admin")]
+   //[Authorize(Roles ="Admin")]
     public class ProductController : Controller
     {
         public IProductReposatory ProductReposatory { get; set; }

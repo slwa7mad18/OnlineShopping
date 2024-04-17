@@ -1,8 +1,9 @@
-﻿@model IEnumerable<WebApplication1.Models.Product>
+﻿@model WebApplication1.Models.Product
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Details";
     Layout = "_AdminLayout";
+
 }
 
 <center>
@@ -19,66 +20,29 @@
                             <p>Price: @Model.Price</p>
                             <p>Category Id: @Model.CategoryId</p>
                         </div>
-                     
-<div class="container ">
-    <div class="row">
-        <div class="col-6">
-            <h1>All Product </h1>
+
+
+
+                        <div class="d-inline-flex gap-1">
+                            <a class="btn btn-warning btn-lg" asp-action="Edit" asp-controller="Product" asp-route-id="@Model.Id"> Update </a>
+                            <a class="btn btn-secondary btn-lg" asp-action="Index" asp-controller="Product"> Cancel </a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col d-flex justify-content-end">
-            <button class="btn btn-outline-success " onclick="window.location.href='@Url.Action("Create")'"> Create New Product </button>
-        </div>
     </div>
-</div>
+</center>
 
-<div class="container ">
 
-    <div id="productTableContainer">
-    </div>
 
-    <div class="text-center">
-        <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center " id="pagination"></ul>
-        </nav>
-    </div>
-</div>
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            loadProductData(1);
-
-            function loadProductData(pageNumber) {
-                $.ajax({
-                    url: '/Product/GetAll',
-                    type: 'GET',
-                    data: { pageNumber: pageNumber, pageSize: 5 }, // Adjust page size as needed
-                    success: function (data) {
-                        $('#productTableContainer').html(data);
-                        displayPagination(pageNumber);
-                    },
-                    error: function () {
-                        console.log('Error loading data.');
-                    }
-                });
-            }
-
-            function displayPagination(pageNumber) {
-                var pagination = $('#pagination');
-                pagination.empty();
-
-                for (var i = 1; i <= @ViewBag.PageCount; i++) {
-                    var li = '<li class="page-item rounded' + (i === pageNumber ? ' active' : '') + '"style="background-color: #863F17;" >' +
-                        '<a style="background-color: #863F17;" class="page-link border-0 rounded" href="#" data-page="' + i + '">' + i + '</a>' +
-                        '</li>';
-
-                    pagination.append(li);
-                }
-
-                pagination.find('a').click(function (e) {
-                    e.preventDefault();
-                    loadProductData($(this).data('page'));
-                });
-            }
-        });
-    </script>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
+<div>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    <a asp-action="Index">Back to List</a>
+</div>
