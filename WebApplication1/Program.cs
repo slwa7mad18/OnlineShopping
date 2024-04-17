@@ -30,7 +30,7 @@ namespace WebApplication1
             builder.Services.AddScoped<IProductReposatory, ProductReposatory>();
             builder.Services.AddTransient<UserManager<ApplicationUser>>();
             builder.Services.AddTransient<RoleManager<IdentityRole>>();
-
+            builder.Services.AddTransient<Initializer>();
             //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<Context>();
 
@@ -56,13 +56,12 @@ namespace WebApplication1
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
-                name: "Dashbord",
+                name: "AdminDashboard",
                 pattern: "{controller=AdminDashbord}/{action=Index}");
 
             
             app.Run();
-            var DbInitializer = new Initializer();
-            DbInitializer.Initialize();
+            
 
         }
     }

@@ -4,6 +4,22 @@
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
+
+<center>
+    <div class="align-content-center">
+        <div class="container">
+            <div class="card shadow rounded mx-3" style="width: 35rem; border: 1px solid #863F17; background-color: #F8FAE5;">
+                <img src="~/Uploads/@Model.ImgUrl" height="300px" class="card-img-top" alt="product Img" />
+                <div class="card-body">
+                    <form asp-action="Details" method="post">
+                        <h2> Name: @Model.Name</h2>
+                        <div class="text-start">
+                            <p>Description: @Model.Description</p>
+                            <p>Count: @Model.Count</p>
+                            <p>Price: @Model.Price</p>
+                            <p>Category Id: @Model.CategoryId</p>
+                        </div>
+                     
 <div class="container ">
     <div class="row">
         <div class="col-6">
