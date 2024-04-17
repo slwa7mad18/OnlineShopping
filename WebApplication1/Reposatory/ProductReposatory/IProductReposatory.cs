@@ -17,5 +17,6 @@ namespace OnlineShopping.Reposatory.ProductReposatory
         bool CheckProductToEdit(string Name, int Id);
 
         List<Product> GetProducts(List<int>? _productsSelected);
+        List<Product> GetProductsByCategory(int categoryId);
     }
 }

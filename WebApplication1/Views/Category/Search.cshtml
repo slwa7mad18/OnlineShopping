@@ -1,25 +1,147 @@
 ﻿@model IEnumerable<WebApplication1.Models.Category>
 
 @{
-    Layout = "_CategoryLayout";
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Search";
 }
 
-<div class="container-fluid pt-4 px-4">
+<style>
+    .container-fluid {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .bg-secondary {
+        background-color: #EAD8C0 !important; /* Light grey */
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    .text-black {
+        color: #000 !important;
+    }
+
+    .search-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
+
+    .search-input {
+        width: 300px;
+        border-radius: 5px;
+        padding: 8px;
+        border: 1px solid #ced4da;
+        margin-right: 10px;
+    }
+
+    .search-button {
+        border-radius: 5px;
+        padding: 8px 15px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+    .create-button {
+        border-radius: 5px;
+        padding: 8px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
+
+        .create-button:hover {
+            background-color: #0056b3;
+        }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #dee2e6;
+            background-color: #95674D; /* Custom header color */
+            color: #fff; /* Header text color */
+        }
+
+        .table tbody + tbody {
+            border-top: 2px solid #dee2e6;
+        }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #fff; /* White */
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+        .table-bordered th,
+        .table-bordered td {
+            border: 1px solid #dee2e6;
+        }
+
+    .table-hover tbody tr:hover {
+        background-color: #e2e6ea; /* Grey */
+    }
+
+    /* Button colors */
+    .edit-button,
+    .details-button,
+    .delete-button,
+    .create-button {
+        background-color: transparent;
+        border: 1px solid #007bff;
+        color: #007bff;
+        border-radius: 5px;
+        padding: 8px 20px;
+        cursor: pointer;
+    }
+
+        .edit-button:hover,
+        .details-button:hover,
+        .delete-button:hover,
+        .create-button:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+</style>
+<div class="container-fluid">
     <div class="bg-secondary text-center rounded p-4">
-        <div class="d-flex align-items-center justify-content-between mb-4">
-            <h6 class="mb-0">Recent Salse</h6>
-            <a href="">Show All</a>
+        <div class="search-container">
+            <h1 class="text-black">Search Categories</h1>
+            <form asp-action="Search" method="get" class="d-flex">
+                <div class="form-group me-2">
+                    <label for="keyword" class="visually-hidden">Search:</label>
+                    <input type="text" id="keyword" name="keyword" class="form-control" placeholder="Search" />
+                </div>
+                <button type="submit" class="btn btn-outline-success">Search</button>
+            </form>
         </div>
         <div class="table-responsive">
-            <table class="table text-start align-middle table-bordered table-hover mb-0">
-                <thead>
-                    <tr class="text-white">
-
+            <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
+                <thead class="text-white">
+                    <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Name</th>
-                        <th scope="col">Create</th>
-                        <th scope="col">Update</th>
+                        <th scope="col">Updated</th>
                         <th scope="col">Details</th>
                         <th scope="col">Delete</th>
                     </tr>
@@ -28,33 +150,22 @@
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Id)
+                                <button class="btn btn-sm btn-outline-warning" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Name)
+                                <button class="btn btn-sm btn-outline-info " onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("New", new { id = item.Id })'">Create</button>
+                                <button class="btn btn-sm btn-outline-danger " onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
                             </td>
-
-                            <td>
-                                <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Edit</button>
-                            </td>
-
-                            <td>
-                                <button class="btn btn-sm btn-primary" onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
-                            </td>
-
-                            <td>
-                                <button class="btn btn-sm btn-danger" onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
-                            </td>
-
-
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
+       
     </div>
-</div> 
+</div>

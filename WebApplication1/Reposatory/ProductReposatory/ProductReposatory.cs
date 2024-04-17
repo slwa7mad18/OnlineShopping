@@ -111,6 +111,13 @@ namespace OnlineShopping.Reposatory.ProductReposatory
             return products;
         }
 
+        public List<Product> GetProductsByCategory(int categoryId)
+        {
+            return Context.Products.Where(p => p.CategoryId == categoryId).ToList();
+        }
+    }
+
+
         
     }
 
@@ -118,4 +125,4 @@ namespace OnlineShopping.Reposatory.ProductReposatory
 
 
 
-}
+

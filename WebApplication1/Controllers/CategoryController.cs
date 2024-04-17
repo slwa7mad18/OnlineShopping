@@ -1,18 +1,23 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Reposatory;
+using OnlineShopping.Reposatory.ProductReposatory;
 using WebApplication1.Models;
 
 namespace OnlineShopping.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class CategoryController : Controller
     {
         IReposatory<Category> reposatory;
-        public CategoryController(IReposatory<Category> reposatory)
-        {
+        ProductReposatory productReposatory;
+        public CategoryController(IReposatory<Category> reposatory, IProductReposatory productReposatory)
+{
+    this.reposatory = reposatory;
+    this.productReposatory = (ProductReposatory?) productReposatory;
+}
 
-            this.reposatory = reposatory;
-        }
 
         public IActionResult Index()
         {
@@ -93,6 +98,15 @@ namespace OnlineShopping.Controllers
 
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public ActionResult Details(int id) {
+
+            Category category= reposatory.GetById(id);
+            List<Product> productsInCategory = productReposatory.GetProductsByCategory(id);
+
+            return View("Details" , productsInCategory);
+        }
+
         [HttpGet]
         public IActionResult Search(string keyword)
         {
