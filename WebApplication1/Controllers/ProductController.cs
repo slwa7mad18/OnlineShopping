@@ -175,6 +175,13 @@ namespace OnlineShopping.Controllers
                 return RedirectToAction("Index");
         }
 
+
+
+        //Review Action
+        public IActionResult AddReview()
+        {
+            return View("AddReview");
+        }
         
     }
 }
