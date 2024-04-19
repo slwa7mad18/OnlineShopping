@@ -61,13 +61,13 @@
 
 
                 </ul>
-                <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
+              @*   <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
                     <option value="0" selected>Select Category</option>
                     @foreach (var category in ViewBag.Categories)
                     {
                         <option value="@category.Id">@category.Name</option>
                     }
-                </select>
+                </select> *@
 
 
                 <input class="form-control me-3 text-dark bg-white input" id="search" name="search" type="search" placeholder="Search Product" aria-label="Search">
@@ -183,22 +183,22 @@
                 }
             });
         }
-        $("#categorySelect").change(function () {
-            var catId = $(this).val();
-            if (catId !== "0") {
-                $.ajax({
-                    url: `/Home/FilterProduct?categoryId=${catId}`,
-                    type: 'GET',
-                    success: function (data) {
-                        console.log(data);
-                        $('#products').html(data);
-                    },
-                    error: function () {
-                        console.log('Error loading data.');
-                    }
-                });
-            }
-        });
+        // $("#categorySelect").change(function () {
+        //     var catId = $(this).val();
+        //     if (catId !== "0") {
+        //         $.ajax({
+        //             url: `/Home/FilterProduct?categoryId=${catId}`,
+        //             type: 'GET',
+        //             success: function (data) {
+        //                 console.log(data);
+        //                 $('#products').html(data);
+        //             },
+        //             error: function () {
+        //                 console.log('Error loading data.');
+        //             }
+        //         });
+        //     }
+        // });
 
 
 
