@@ -45,10 +45,16 @@
                         </a>
                     </li>
                     <li class="nav-item m-0">
-                        <a class="nav-link text-white @(Context.Request.Path.StartsWithSegments("/Contact")   ? "active" : "") " href="/Contact">Contact</a>
+                        @* http://localhost:5161/contact/contact *@
+                        <a class="nav-link text-white @(Context.Request.Path.StartsWithSegments("/Contact")   ? "active" : "") " href="/contact/contact">Contact</a>
                     </li>
-                    <li class="nav-item m-0">
+                  @*   <li class="nav-item m-0">
                         <a class="nav-link text-white @(Context.Request.Path.StartsWithSegments("/About")   ? "active" : "") " href="/About">About</a>
+                    </li> *@
+
+                    <li class="nav-item m-0" >
+                        <a class="nav-link text-white" asp-area="" asp-controller="AboutUs" asp-action="AboutUs">About</a>
+
                     </li>
                    
                     </li>
