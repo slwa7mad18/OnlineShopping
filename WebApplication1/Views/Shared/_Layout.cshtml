@@ -107,6 +107,7 @@
                     </li>
 
                 </ul>
+             
 
               @*   <a onclick="GoToCart()">
                     <i type="button" class="bi fs-4 bi-cart4 text-light position-relative me-2 p-0 nav-item nav-link">
@@ -122,6 +123,9 @@
             </div>
         </div>
     </nav>
+    <div id="products" class="container-fluid d-flex flex-wrap justify-content-center">
+        <!-- Products will be dynamically loaded here -->
+    </div>
 
 
     
@@ -180,20 +184,23 @@
             });
         }
         $("#categorySelect").change(function () {
-            var catID = $("#categorySelect").val(); // Corrected the ID selector
-            $.ajax({
-                url: `/Home/FilterProduct?categoryId=${catID}`,
-                type: 'GET',
-                success: function (data) {
-                    console.log(data);
-                    console.log(catID);
-                    $('#products').html(data);
-                },
-                error: function () {
-                    console.log('Error loading data.');
-                }
-            });
+            var catId = $(this).val();
+            if (catId !== "0") {
+                $.ajax({
+                    url: `/Home/FilterProduct?categoryId=${catId}`,
+                    type: 'GET',
+                    success: function (data) {
+                        console.log(data);
+                        $('#products').html(data);
+                    },
+                    error: function () {
+                        console.log('Error loading data.');
+                    }
+                });
+            }
         });
+
+
 
 
 
