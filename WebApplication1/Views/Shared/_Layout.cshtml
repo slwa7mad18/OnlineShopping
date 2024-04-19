@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -55,9 +56,19 @@
                         <a class="nav-link text-white" asp-area="" asp-controller="AboutUs" asp-action="AboutUs">About</a>
 
                     </li>
+                   
+                    </li>
 
 
                 </ul>
+                <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
+                    <option value="0" selected>Select Category</option>
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                </select>
+
 
                 <input class="form-control me-3 text-dark bg-white input" id="search" name="search" type="search" placeholder="Search Product" aria-label="Search">
                 <span class=" me-3 "><button onclick="SearchProducts()" class="btn rounded text-black" style="background-color:#F8FAE5;" type="submit">Search</button></span>
@@ -82,12 +93,15 @@
                                 @* <i class="bi bi-person-circle"></i> *@
                                 @User.Identity.Name.Split("@")[0]
                             </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" href="/Profile/Index"><i class="bi bi-person-vcard-fill"></i> My Account</a>
-                                <a class="dropdown-item" href="/Profile/Orders"><i class="bi bi-printer-fill"></i> Orders</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" asp-controller="Account" asp-action="SignOut"><i class="bi bi-box-arrow-left"></i> Logout</a>
-                            </div>
+                            <select class="form-select me-3" aria-label="Select Category" id="categoryId">
+                                <option selected>Select Category</option>
+                                <!-- Populate this with categories -->
+                                @foreach (var category in ViewBag.CategoryId)
+                                {
+                                    <option value="@category.Id">@category.Name</option>
+                                }
+                            </select>
+
                         }
 
                     </li>
@@ -165,22 +179,26 @@
                 }
             });
         }
-
-        function CategoryProducts(Id) {
-
+        $("#categorySelect").change(function () {
+            var catID = $("#categorySelect").val(); // Corrected the ID selector
             $.ajax({
-                url: `/Home/Categories?catId=${Id}`,
+                url: `/Home/FilterProduct?categoryId=${catID}`,
                 type: 'GET',
                 success: function (data) {
-
-                    console.log(data)
+                    console.log(data);
+                    console.log(catID);
                     $('#products').html(data);
                 },
                 error: function () {
                     console.log('Error loading data.');
                 }
             });
-        }
+        });
+
+
+
+
+
 
 
 
