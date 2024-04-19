@@ -38,6 +38,12 @@ namespace WebApplication1
             builder.Services.AddSession();
             var app = builder.Build();
 
+            ///
+
+
+
+            ///
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -49,7 +55,7 @@ namespace WebApplication1
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-            
+
 
             app.MapControllerRoute(
                 name: "default",
@@ -59,10 +65,13 @@ namespace WebApplication1
                 name: "AdminDashboard",
                 pattern: "{controller=AdminDashbord}/{action=Index}");
 
-            
+
             app.Run();
-            
+
 
         }
     }
 }
+
+
+

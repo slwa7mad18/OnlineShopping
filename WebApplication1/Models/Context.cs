@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using OnlineShopping.Models;
 
 namespace WebApplication1.Models
 {
@@ -11,6 +12,9 @@ namespace WebApplication1.Models
         public DbSet<Order> orders { get; set; }
         public DbSet<OrderItem> orderItems { get; set; }
         public DbSet<Cart> carts { get; set; }
+
+
+        public DbSet<ContactFormModel> ContactForms { get; set; }
 
         public Context(DbContextOptions<Context> options) : base(options)
         {
