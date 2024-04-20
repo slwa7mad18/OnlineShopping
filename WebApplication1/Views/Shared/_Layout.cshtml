@@ -61,7 +61,7 @@
 
 
                 </ul>
-              @*   <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
+               @*  <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
                     <option value="0" selected>Select Category</option>
                     @foreach (var category in ViewBag.Categories)
                     {
@@ -123,10 +123,10 @@
             </div>
         </div>
     </nav>
-    <div id="products" class="container-fluid d-flex flex-wrap justify-content-center">
+   @*  <div id="products" class="container-fluid d-flex flex-wrap justify-content-center">
         <!-- Products will be dynamically loaded here -->
     </div>
-
+ *@
 
     
     <br />
@@ -184,7 +184,7 @@
             });
         }
         // $("#categorySelect").change(function () {
-        //     var catId = $(this).val();
+        //     var catId = $("#categorySelect").val();
         //     if (catId !== "0") {
         //         $.ajax({
         //             url: `/Home/FilterProduct?categoryId=${catId}`,

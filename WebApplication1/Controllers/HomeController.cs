@@ -29,14 +29,15 @@ namespace WebApplication1.Controllers
         public IActionResult FilterProduct(int categoryId)
         {
             var productsInCategory = reprositryProd.GetProductsByCategory(categoryId);
-            return View( productsInCategory);
+            return View("Product", productsInCategory);
         }
 
-    
 
 
 
-    public IActionResult GetProduct(int Id)
+
+
+        public IActionResult GetProduct(int Id)
         {
             var allProducts = reprositryProd.GetAll();
             var currentProduct = allProducts.FirstOrDefault(p => p.Id == Id);
@@ -56,7 +57,7 @@ namespace WebApplication1.Controllers
             if (!string.IsNullOrEmpty(search))
             {
                 var filteredProducts = reprositryProd.GetAll().Where(p => p.Name.ToLower().Contains(search.ToLower()));
-                return PartialView("Products", filteredProducts);
+                return View("Product", filteredProducts);
             }
             else
             {
