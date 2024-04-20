@@ -97,6 +97,11 @@
                                 @* <i class="bi bi-person-circle"></i> *@
                                 @User.Identity.Name.Split("@")[0]
                             </a>
+
+                            <div class="dropdown-menu">
+                                 <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" asp-controller="Account" asp-action="SignOut"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                            </div>
                             @* <select class="form-select me-3" aria-label="Select Category" id="categoryId">
                                 <option selected>Select Category</option>
                                 <!-- Populate this with categories -->
