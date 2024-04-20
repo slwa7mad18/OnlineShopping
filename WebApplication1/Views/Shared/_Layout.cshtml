@@ -61,13 +61,17 @@
 
 
                 </ul>
-               @*  <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
+                <select id="categorySelect" class="form-select me-3" aria-label="Select Category">
                     <option value="0" selected>Select Category</option>
-                    @foreach (var category in ViewBag.Categories)
+                    @if (ViewBag.Categories != null)
                     {
-                        <option value="@category.Id">@category.Name</option>
+                        foreach (var category in ViewBag.Categories)
+                        {
+                            <option value="@category.Id">@category.Name</option>
+                        }
                     }
-                </select> *@
+                </select>
+
 
 
                 <input class="form-control me-3 text-dark bg-white input" id="search" name="search" type="search" placeholder="Search Product" aria-label="Search">
@@ -93,7 +97,7 @@
                                 @* <i class="bi bi-person-circle"></i> *@
                                 @User.Identity.Name.Split("@")[0]
                             </a>
-                            <select class="form-select me-3" aria-label="Select Category" id="categoryId">
+                            @* <select class="form-select me-3" aria-label="Select Category" id="categoryId">
                                 <option selected>Select Category</option>
                                 <!-- Populate this with categories -->
                                 @foreach (var category in ViewBag.CategoryId)
@@ -101,7 +105,7 @@
                                     <option value="@category.Id">@category.Name</option>
                                 }
                             </select>
-
+ *@
                         }
 
                     </li>
@@ -123,10 +127,11 @@
             </div>
         </div>
     </nav>
-   @*  <div id="products" class="container-fluid d-flex flex-wrap justify-content-center">
-        <!-- Products will be dynamically loaded here -->
+    <div id="products" class="container-fluid d-flex flex-wrap justify-content-center">
+     
     </div>
- *@
+
+   
 
     
     <br />
@@ -134,8 +139,12 @@
         <h2 class="text-center" style="color:#863F17;">
             Welcome To HŌME
         </h2>
-        <main role="main" class="pb-3">
-            @RenderBody()
+        <div id="productsContainer" class="container-fluid d-flex flex-wrap justify-content-center">
+            <!-- This container will hold either the product or filter partial view -->
+            @RenderBody();
+        </div>
+        <main role="main" class="pb-3" id="main1">
+         
         </main>
     </div>
 
@@ -183,24 +192,34 @@
                 }
             });
         }
-        // $("#categorySelect").change(function () {
-        //     var catId = $("#categorySelect").val();
-        //     if (catId !== "0") {
-        //         $.ajax({
-        //             url: `/Home/FilterProduct?categoryId=${catId}`,
-        //             type: 'GET',
-        //             success: function (data) {
-        //                 console.log(data);
-        //                 $('#products').html(data);
-        //             },
-        //             error: function () {
-        //                 console.log('Error loading data.');
-        //             }
-        //         });
-        //     }
-        // });
-
-
+        $("#categorySelect").change(function () {
+            var catId = $("#categorySelect").val();
+            if (catId !== "0") {
+                $.ajax({
+                    url: `/Home/FilterProduct?categoryId=${catId}`,
+                    type: 'GET',
+                    success: function (data) {
+                        // Show the filter partial view
+                        $("#productsContainer").html(data);
+                    },
+                    error: function () {
+                        console.log('Error loading data.');
+                    }
+                });
+            } else {
+                // If no category is selected, show the product partial view
+                $.ajax({
+                    url: `/Home/Product`,
+                    type: 'GET',
+                    success: function (data) {
+                        $("#productsContainer").html(data);
+                    },
+                    error: function () {
+                        console.log('Error loading data.');
+                    }
+                });
+            }
+        });
 
 
 

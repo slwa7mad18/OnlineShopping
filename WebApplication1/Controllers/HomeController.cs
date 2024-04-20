@@ -29,7 +29,7 @@ namespace WebApplication1.Controllers
         public IActionResult FilterProduct(int categoryId)
         {
             var productsInCategory = reprositryProd.GetProductsByCategory(categoryId);
-            return View("Product", productsInCategory);
+            return PartialView("FilterProduct" ,productsInCategory);
         }
 
 

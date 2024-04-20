@@ -1,0 +1,58 @@
+﻿@model IEnumerable<WebApplication1.Models.Product>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col">
+                <div class="card">
+                    <img onclick="navigateToProduct(@item.Id)" src="~/Uploads/@item.ImgUrl" class="card-img-top mt-1 rounded" height="150px" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Name</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text">Price: $@item.Price</p>
+                        <p class="card-text">Count: @item.Count</p>
+                        @if (item.Count <= 0)
+                        {
+                            <a id="@item.Id" class="btn btn-danger hide col-12 disabled">Out Of Stock</a>
+                        }
+                        else
+                        {
+                            <a id="@item.Id" style="background-color:#43766C;" class="btn text-white hide col-12 " onclick="AddToCart(@item.Id)">Add To Cart</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card {
+        width: 18rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .card-body {
+        padding: 1.25rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        margin-bottom: 0.5rem;
+    }
+
+    .card-img-top {
+        border-radius: 0.5rem 0.5rem 0 0;
+    }
+
+    .card:hover {
+        transform: translateY(-0.25rem);
+        transition: transform 0.3s ease;
+    }
+</style>
