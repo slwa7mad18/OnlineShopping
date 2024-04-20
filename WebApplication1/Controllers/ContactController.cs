@@ -28,13 +28,24 @@ namespace OnlineShopping.Controllers
         {
             if (ModelState.IsValid)
             {
-                // _context.ContactForms.Add(model);
-                //_context.SaveChanges();
+                _context.ContactForms.Add(model);
+                _context.SaveChanges();
+
                 return RedirectToAction("ThankYou");
             }
 
             return View("Index", model);
         }
+        public IActionResult ContactSubmissions()
+        {
+            //var submissions = _context.ContactForms.ToList();
+            //return View(submissions);
+
+
+            var submissions = _context.ContactForms.ToList();
+            return PartialView("ContactSubmissions", submissions);
+        }
+
 
         public IActionResult ThankYou()
         {
