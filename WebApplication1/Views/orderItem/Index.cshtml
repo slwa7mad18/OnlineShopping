@@ -1,10 +1,9 @@
-﻿@model IEnumerable<WebApplication1.Models.Category>
+﻿@model IEnumerable< WebApplication1.Models.OrderItem>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "_AdminLayout";
 }
-
 <style>
     .container-fluid {
         padding-top: 20px;
@@ -128,7 +127,7 @@
 <div class="container-fluid">
     <div class="bg-secondary text-center rounded p-4">
         <div class="search-container">
-            <h1 class="text-black">Categories</h1>
+            <h1 class="text-black">OrderItem</h1>
             <form asp-action="Search" method="get" class="d-flex">
                 <div class="form-group me-2">
                     <label for="keyword" class="visually-hidden">Search:</label>
@@ -141,19 +140,24 @@
             <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
                 <thead class="text-white">
                     <tr>
-                        <th scope="col">ID</th>
                         <th scope="col">Name</th>
+                        <th scope="col">Amount </th>
+                        <th scope="col">OrderId</th>
+                        <th scope="col">ProductId </th>
                         <th scope="col">Updated</th>
                         <th scope="col">Details</th>
                         <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Name</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        
+						@foreach (var item in Model)
+									{
+										<tr>
+					<td>@item.Name</td>
+					<td>@item.Amount </td>
+					<td>@item.OrderId </td>
+					<td>@item.ProductId </td>
                             <td>
                                 <button class="btn btn-sm btn-outline-warning" edit-button" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
                             </td>
@@ -169,7 +173,6 @@
             </table>
         </div>
         <div class="d-flex justify-content-end mt-3">
-
         </div>
     </div>
 </div>
@@ -212,3 +215,6 @@
         </div>
     </div>
 }
+
+
+

@@ -1,10 +1,9 @@
-﻿@model IEnumerable<WebApplication1.Models.Category>
+﻿@model IEnumerable< WebApplication1.Models.Order>
 
-@{
-    ViewData["Title"] = "Index";
-    Layout = "_AdminLayout";
-}
-
+	@{
+	ViewData["Title"] = "Index";
+	Layout = "_AdminLayout";
+   }
 <style>
     .container-fluid {
         padding-top: 20px;
@@ -128,7 +127,7 @@
 <div class="container-fluid">
     <div class="bg-secondary text-center rounded p-4">
         <div class="search-container">
-            <h1 class="text-black">Categories</h1>
+            <h1 class="text-black">Order</h1>
             <form asp-action="Search" method="get" class="d-flex">
                 <div class="form-group me-2">
                     <label for="keyword" class="visually-hidden">Search:</label>
@@ -140,63 +139,30 @@
         <div class="table-responsive">
             <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
                 <thead class="text-white">
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
+                        <tr>
+                     
+                      
+                        <th scope="col">Price</th>
+                        <th scope="col">>delivaryDate</th>
+                        <th scope="col">Destation</th>
+                        <th scope="col">orderDate</th>
                         <th scope="col">Updated</th>
                         <th scope="col">Details</th>
                         <th scope="col">Delete</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>@item.Id</td>
-                            <td>@item.Name</td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-warning" edit-button" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-info " onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-sm btn-outline-danger " onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
-                            </td>
+                      
                         </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <div class="d-flex justify-content-end mt-3">
-
-        </div>
-    </div>
-</div>
-@if (ViewBag.SearchResults != null)
-{
-    <div class="container-fluid mt-4">
-        <div class="bg-secondary text-center rounded p-4">
-            <h2>Search Results</h2>
-            <div class="table-responsive">
-                <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
-                    <thead class="text-white">
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Updated</th>
-                            <th scope="col">Details</th>
-                            <th scope="col">Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in ViewBag.SearchResults)
-                        {
-                            <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Name</td>
+                      </thead>
+                      <tbody>
+                        
+						@foreach (var item in Model)
+									{
+										<tr>
+										<td>@item.Cost</td>
+										<td>@item.DeliveryDate</td>
+										<td>@item.Destination </td>
+										<td>@item.OrderDate </td>
                                 <td>
-                                    <button class="btn btn-sm btn-outline-warning" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
+                                    <button class="btn btn-sm btn-outline-warning" edit-button" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
                                 </td>
                                 <td>
                                     <button class="btn btn-sm btn-outline-info " onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
@@ -209,6 +175,47 @@
                     </tbody>
                 </table>
             </div>
+            <div class="d-flex justify-content-end mt-3">
+               
+            </div>
         </div>
     </div>
-}
+    @if (ViewBag.SearchResults != null)
+    {
+        <div class="container-fluid mt-4">
+            <div class="bg-secondary text-center rounded p-4">
+                <h2>Search Results</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped text-start align-middle table-bordered table-hover mb-0">
+                        <thead class="text-white">
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Updated</th>
+                                <th scope="col">Details</th>
+                                <th scope="col">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in ViewBag.SearchResults)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-warning" onclick="window.location.href='@Url.Action("EditCategory", new { id = item.Id })'">Update</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-info " onclick="window.location.href='@Url.Action("Details", new { id = item.Id })'">Details</button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-sm btn-outline-danger " onclick="window.location.href='@Url.Action("Delete", new { id = item.Id })'">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }

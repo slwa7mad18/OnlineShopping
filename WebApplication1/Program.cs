@@ -27,10 +27,14 @@ namespace WebApplication1
                 .AddEntityFrameworkStores<Context>();
 
             builder.Services.AddScoped<IReposatory<Category>, GenaricReposatory<Category>>();
+            builder.Services.AddScoped<IReposatory<Order>, GenaricReposatory<Order>>();
+            builder.Services.AddScoped<IReposatory<OrderItem>, GenaricReposatory<OrderItem>>();
             builder.Services.AddScoped<IProductReposatory, ProductReposatory>();
             builder.Services.AddTransient<UserManager<ApplicationUser>>();
             builder.Services.AddTransient<RoleManager<IdentityRole>>();
             builder.Services.AddTransient<Initializer>();
+            builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
             //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
             //    .AddEntityFrameworkStores<Context>();
 
