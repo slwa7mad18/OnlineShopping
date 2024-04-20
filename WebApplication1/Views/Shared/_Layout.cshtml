@@ -100,9 +100,14 @@
                             @* <select class="form-select me-3" aria-label="Select Category" id="categoryId">
                                 <option selected>Select Category</option>
                                 <!-- Populate this with categories -->
-                                @foreach (var category in ViewBag.CategoryId)
+                                @if (ViewBag.Categories !=null){
+                                @foreach (var category in ViewBag.Categories)
                                 {
                                     <option value="@category.Id">@category.Name</option>
+                                    }
+                                }else
+                                {
+                                    <p>No Categories Avaliable</p>
                                 }
                             </select>
  *@

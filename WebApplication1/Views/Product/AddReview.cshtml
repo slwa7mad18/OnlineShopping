@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "AddReview";
+}
+
+<div class="container p-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Add new Review</h1>
+            <span>Enter Your name : </span><br />
+            <input type="text" id="txtUser" /> <br/>
+
+            <span>Your review : </span><br />
+            <textarea rows="10" cols="50" id="txtMessage"></textarea>
+
+            <button type="button" id="btnSend" class="btn btn-danger">Send Review</button>
+        </div>
+
+        <div class="col-md-6">
+            <h3>Reviews on this Product</h3>
+            <ul id="list" class="alert alert-info"></ul>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+<script>
+    var connection = new signalR.HubConnectionBuilder()
+        .withUrl("/reviewHub") // Provide the URL to your hub
+        .configureLogging(signalR.LogLevel.Information) // Optionally, configure logging
+        .build();
+
+    connection.on("RecieveMessage", function (fromUser, message) {
+        var msg = fromUser + ": " + message;
+        var li = document.createElement("li");
+        li.textContent = msg;
+        $("#list").prepend(li);
+    });
+
+    connection.start()
+        .then(function () {
+            console.log("Connection established.");
+        })
+        .catch(function (err) {
+            console.error("Error starting connection: " + err);
+        });
+
+    $("#btnSend").on("click", function () {
+        var user = $("#txtUser").val();
+        var message = $("#txtMessage").val();
+
+        connection.invoke("SendMessage", user, message)
+            .catch(function (err) {
+                console.error("Error invoking SendMessage: " + err);
+            });
+    });
+</script>
+
