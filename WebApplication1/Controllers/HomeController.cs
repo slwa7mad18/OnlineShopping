@@ -1,6 +1,9 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnlineShopping.Reposatory;
 using OnlineShopping.Reposatory.ProductReposatory;
+using OnlineShopping.Reposatory.ReviewReprositry;
+using OnlineShopping.ViewModel.review;
 using System;
 using WebApplication1.Models;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -9,11 +12,17 @@ namespace WebApplication1.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IReviewReprositry reviewReprositry;
         private readonly IProductReposatory reprositryProd;
         private readonly IReposatory<Category> categoryRepo;
 
-        public HomeController(IProductReposatory reprositryProd, IReposatory<Category> categoryRepo)
+        public HomeController(UserManager<ApplicationUser> userManager
+            ,IReviewReprositry reviewReprositry
+                ,IProductReposatory reprositryProd, IReposatory<Category> categoryRepo)
         {
+            this.userManager = userManager;
+            this.reviewReprositry = reviewReprositry;
             this.reprositryProd = reprositryProd;
             this.categoryRepo = categoryRepo;
         }
@@ -33,6 +42,27 @@ namespace WebApplication1.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<IActionResult> AddReviewAsync(AddReviewViewModel review)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(review.email);
+                var reviewDB = new AddReviewDBViewModel();
+                reviewDB.UserId = user.Id;
+                reviewDB.ProdId = review.ProdId;
+                reviewDB.Rate = review.Rate;
+                reviewDB.Comment = review.Comment;
+                reviewReprositry.Insert(reviewDB);
+                return RedirectToAction("GetProduct", new { Id = review.ProdId });
+            }
+            else
+            {
+                ViewData["SignInError"] = "Sign In First!";
+                return RedirectToAction("GetProduct", new { Id = review.ProdId });
+            }
+        }
 
 
 
@@ -51,6 +81,7 @@ namespace WebApplication1.Controllers
             var product = reprositryProd.GetById(Id);
             return View(product);
         }
+
 
         public IActionResult Search(string search)
         {

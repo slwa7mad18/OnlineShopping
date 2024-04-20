@@ -4,6 +4,7 @@ using OnlineShopping.Hubs;
 using OnlineShopping.Models;
 using OnlineShopping.Reposatory;
 using OnlineShopping.Reposatory.ProductReposatory;
+using OnlineShopping.Reposatory.ReviewReprositry;
 using WebApplication1.Models;
 
 namespace WebApplication1
@@ -29,9 +30,12 @@ namespace WebApplication1
             .AddEntityFrameworkStores<Context>();
 
             builder.Services.AddScoped<IReposatory<Category>, GenaricReposatory<Category>>();
+
             builder.Services.AddScoped<IReposatory<Order>, GenaricReposatory<Order>>();
             builder.Services.AddScoped<IReposatory<OrderItem>, GenaricReposatory<OrderItem>>();
             builder.Services.AddScoped<IProductReposatory, ProductReposatory>();
+            builder.Services.AddScoped<IReviewReprositry, ReviewReprositry>();
+
             builder.Services.AddTransient<UserManager<ApplicationUser>>();
             builder.Services.AddTransient<RoleManager<IdentityRole>>();
             builder.Services.AddTransient<Initializer>();
